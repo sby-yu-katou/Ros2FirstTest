@@ -9,12 +9,12 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
+find_package(first_test_messages REQUIRED)
 
 ########################################
 # for Publisher
 add_executable(talker src/Publisher/TestPublisher.cpp src/Publisher/Worker.cpp)
-ament_target_dependencies(talker rclcpp std_msgs)
+ament_target_dependencies(talker rclcpp first_test_messages)
 
 # インクルードファイルを検索する追加のパスを指定
 # target_include_directories(talker PRIVATE ./include/)
@@ -22,7 +22,7 @@ ament_target_dependencies(talker rclcpp std_msgs)
 ########################################
 # for Subscriber
 add_executable(listener src/Subscriber/TestSubscriber.cpp)
-ament_target_dependencies(listener rclcpp std_msgs)
+ament_target_dependencies(listener rclcpp first_test_messages)
 
 # インクルードファイルを検索する追加のパスを指定
 # target_include_directories(listener PRIVATE ./include/)

@@ -1,7 +1,7 @@
 #include <memory>
 
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
+#include "first_test_messages/msg/point.hpp"
 
 using std::placeholders::_1;
 
@@ -19,7 +19,7 @@ namespace FirstTestPackage::Subscriber
       TestSubscriber()
         : Node("test_subscriber")
       {
-        _subscription = this->create_subscription<std_msgs::msg::String>("topic", 10, std::bind(&TestSubscriber::TopicCallback, this, _1));
+        _subscription = this->create_subscription<first_test_messages::msg::Point>("topic", 10, std::bind(&TestSubscriber::TopicCallback, this, _1));
       }
 
     private:
@@ -27,15 +27,15 @@ namespace FirstTestPackage::Subscriber
       * @brief トピック通信を受信したときのコールバック処理です。
       * @param msg 受信したメッセージを表します。
       **/
-      void TopicCallback(const std_msgs::msg::String &msg) const
+      void TopicCallback(const first_test_messages::msg::Point &pt) const
       {
-        RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg.data.c_str());
+        RCLCPP_INFO(this->get_logger(), "I heard: (%ld, %ld, %ld)", pt.x, pt.y, pt.z);
       }
 
       /**
       * @brief トピック通信を受信するためのノード
       **/
-      rclcpp::Subscription<std_msgs::msg::String>::SharedPtr _subscription;
+      rclcpp::Subscription<first_test_messages::msg::Point>::SharedPtr _subscription;
   };
 }
 

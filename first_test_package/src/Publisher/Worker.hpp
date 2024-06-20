@@ -1,8 +1,11 @@
 #include <iostream>
 #include <chrono>
 
+#include "first_test_messages/msg/point.hpp"
+
 using namespace std;
 using namespace std::chrono_literals;
+using namespace first_test_messages::msg;
 
 namespace FirstTestPackage::Publisher
 {
@@ -15,20 +18,20 @@ namespace FirstTestPackage::Publisher
       Worker();
 
       /**
-       * @brief カウンタインクリメントをおこないます。
+       * @brief 座標を移動します。
       **/
-      void IncrementCount();
+      void Move();
 
       /**
-       * @brief カウンタの現在値を取得します。
-       * @return size_t 現在値を返します。
+       * @brief 現在位置を取得します。
+       * @return Point 現在位置を返します。
       **/
-      size_t GetCount();
+      Point GetCurrentPoint();
 
     private:
       /**
-       * @brief デモ用のカウンタ
+       * @brief デモ用の座標
       **/
-      size_t _count;
+      Point _pt;
   };
 }

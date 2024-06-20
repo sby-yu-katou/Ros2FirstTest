@@ -8,23 +8,27 @@ namespace FirstTestPackage::Publisher
   Worker::Worker()
   {
     cout << "Worker!" << endl;
-    _count = 0;
+    _pt.x = 0;
+    _pt.y = 0;
+    _pt.z = 0;
   }
 
   /**
-  * @brief カウンタインクリメントをおこないます。
+  * @brief 座標を移動します。
   **/
-  void Worker::IncrementCount()
+  void Worker::Move()
   {
-    _count++;
+    _pt.x += 1;
+    _pt.y += 2;
+    _pt.z += 3;
   }
 
   /**
-  * @brief カウンタの現在値を取得します。
-  * @return size_t 現在値を返します。
+  * @brief 現在位置を取得します。
+  * @return Point 現在位置を返します。
   **/
-  size_t Worker::GetCount()
+  Point Worker::GetCurrentPoint()
   {
-    return _count;
+    return _pt;
   }
 }

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
+#include "first_test_messages/msg/point.hpp"
 
 #include "Worker.hpp"
 
@@ -25,7 +25,7 @@ namespace FirstTestPackage::Publisher
       TestPublisher()
         : Node("test_publisher")
       {
-        _publisher = this->create_publisher<std_msgs::msg::String>("topic", 10);
+        _publisher = this->create_publisher<first_test_messages::msg::Point>("topic", 10);
         _timer = this->create_wall_timer(500ms, std::bind(&TestPublisher::TimerCallback, this));
       }
 
@@ -35,12 +35,11 @@ namespace FirstTestPackage::Publisher
       **/
       void TimerCallback()
       {
-        auto message = std_msgs::msg::String();
-        message.data = "Hello, world! " + std::to_string(_worker.GetCount());
-        RCLCPP_INFO(this->get_logger(), "Pulbishing: '%s'", message.data.c_str());
-        _publisher->publish(message);
+        first_test_messages::msg::Point pt = _worker.GetCurrentPoint();
+        RCLCPP_INFO(this->get_logger(), "Pulbishing: (%ld, %ld, %ld)", pt.x, pt.y, pt.z);
+        _publisher->publish(pt);
 
-        _worker.IncrementCount();
+        _worker.Move();
       }
 
       /**
@@ -51,7 +50,7 @@ namespace FirstTestPackage::Publisher
       /**
       * @brief トピック通信を送信するためのノード
       **/
-      rclcpp::Publisher<std_msgs::msg::String>::SharedPtr _publisher;
+      rclcpp::Publisher<first_test_messages::msg::Point>::SharedPtr _publisher;
 
       /**
       * @brief デモ用の仕事人
