@@ -14,8 +14,13 @@ add_executable(talker src/TestPublisher.cpp)
 ament_target_dependencies(talker rclcpp std_msgs)
 target_include_directories(talker PRIVATE ./include/first_test_package)
 
+add_executable(listener src/TestSubscriber.cpp)
+ament_target_dependencies(listener rclcpp std_msgs)
+target_include_directories(listener PRIVATE ./include/first_test_package)
+
 install(TARGETS
   talker
+  listener
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
