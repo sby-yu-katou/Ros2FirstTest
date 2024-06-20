@@ -5,24 +5,38 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+########################################
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
+########################################
+# for Publisher
 add_executable(talker src/TestPublisher.cpp)
 ament_target_dependencies(talker rclcpp std_msgs)
+
+# インクルードファイルを検索する追加のパスを指定
 target_include_directories(talker PRIVATE ./include/first_test_package)
 
+########################################
+# for Subscriber
 add_executable(listener src/TestSubscriber.cpp)
 ament_target_dependencies(listener rclcpp std_msgs)
+
+# インクルードファイルを検索する追加のパスを指定
 target_include_directories(listener PRIVATE ./include/first_test_package)
+########################################
+
+########################################
+# 実行可能なパッケージを追加した場合はこちらにも追加する
 
 install(TARGETS
   talker
   listener
   DESTINATION lib/${PROJECT_NAME})
 
+########################################
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
