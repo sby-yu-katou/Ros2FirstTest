@@ -10,16 +10,16 @@ namespace FirstTestPackage::Subscriber
   /**
   * @brief テスト用のサブスクライバーを表します。
   **/
-  class TestSubscriber : public rclcpp::Node
+  class TestSubscriber1 : public rclcpp::Node
   {
     public:
       /**
       * @brief 新しいインスタンスを生成します。
       **/
-      TestSubscriber()
-        : Node("test_subscriber")
+      TestSubscriber1()
+        : Node("test_subscriber1")
       {
-        _subscription = this->create_subscription<first_test_messages::msg::Point>("topic", 10, std::bind(&TestSubscriber::TopicCallback, this, _1));
+        _subscription = this->create_subscription<first_test_messages::msg::Point>("topic1", 10, std::bind(&TestSubscriber1::TopicCallback, this, _1));
       }
 
     private:
@@ -40,7 +40,7 @@ namespace FirstTestPackage::Subscriber
 }
 
 /**
- * @brief TestSubscriber としてのエントリーポイントです。
+ * @brief TestSubscriber1 としてのエントリーポイントです。
  * @param argc コマンドライン入力引数の数を表します。
  * @param argv コマンドライン入力引数を表します。
  * @return int 終了コードを返します。正常な場合は 0 を返します。
@@ -48,7 +48,7 @@ namespace FirstTestPackage::Subscriber
 int main(int argc, char *argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<FirstTestPackage::Subscriber::TestSubscriber>());
+  rclcpp::spin(std::make_shared<FirstTestPackage::Subscriber::TestSubscriber1>());
   rclcpp::shutdown();
 
   return 0;

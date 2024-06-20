@@ -13,19 +13,27 @@ find_package(first_test_messages REQUIRED)
 
 ########################################
 # for Publisher
-add_executable(talker src/Publisher/TestPublisher.cpp src/Publisher/Worker.cpp)
+add_executable(talker src/Publisher/TestPublisher.cpp src/Publisher/Worker1.cpp src/Publisher/Worker2.cpp)
 ament_target_dependencies(talker rclcpp first_test_messages)
 
 # インクルードファイルを検索する追加のパスを指定
 # target_include_directories(talker PRIVATE ./include/)
 
 ########################################
-# for Subscriber
-add_executable(listener src/Subscriber/TestSubscriber.cpp)
-ament_target_dependencies(listener rclcpp first_test_messages)
+# for Subscriber1
+add_executable(listener1 src/Subscriber/TestSubscriber1.cpp)
+ament_target_dependencies(listener1 rclcpp first_test_messages)
 
 # インクルードファイルを検索する追加のパスを指定
-# target_include_directories(listener PRIVATE ./include/)
+# target_include_directories(listener1 PRIVATE ./include/)
+
+########################################
+# for Subscriber2
+add_executable(listener2 src/Subscriber/TestSubscriber2.cpp)
+ament_target_dependencies(listener2 rclcpp first_test_messages)
+
+# インクルードファイルを検索する追加のパスを指定
+# target_include_directories(listener2 PRIVATE ./include/)
 ########################################
 
 ########################################
@@ -33,7 +41,8 @@ ament_target_dependencies(listener rclcpp first_test_messages)
 
 install(TARGETS
   talker
-  listener
+  listener1
+  listener2
   DESTINATION lib/${PROJECT_NAME})
 
 ########################################
