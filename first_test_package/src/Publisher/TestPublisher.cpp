@@ -6,6 +6,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
+#include "Worker.hpp"
+
 using namespace std::chrono_literals;
 
 namespace FirstTestPackage::Publisher
@@ -22,7 +24,6 @@ namespace FirstTestPackage::Publisher
       **/
       TestPublisher()
         : Node("test_publisher")
-          , _count(0)
       {
         _publisher = this->create_publisher<std_msgs::msg::String>("topic", 10);
         _timer = this->create_wall_timer(500ms, std::bind(&TestPublisher::TimerCallback, this));
@@ -35,9 +36,11 @@ namespace FirstTestPackage::Publisher
       void TimerCallback()
       {
         auto message = std_msgs::msg::String();
-        message.data = "Hello, world! " + std::to_string(_count++);
+        message.data = "Hello, world! " + std::to_string(_worker.GetCount());
         RCLCPP_INFO(this->get_logger(), "Pulbishing: '%s'", message.data.c_str());
         _publisher->publish(message);
+
+        _worker.IncrementCount();
       }
 
       /**
@@ -51,9 +54,9 @@ namespace FirstTestPackage::Publisher
       rclcpp::Publisher<std_msgs::msg::String>::SharedPtr _publisher;
 
       /**
-      * @brief デモ用のカウンタ
+      * @brief デモ用の仕事人
       **/
-      size_t _count;
+      Worker _worker;
   };
 }
 

@@ -13,7 +13,7 @@ find_package(std_msgs REQUIRED)
 
 ########################################
 # for Publisher
-add_executable(talker src/Publisher/TestPublisher.cpp)
+add_executable(talker src/Publisher/TestPublisher.cpp src/Publisher/Worker.cpp)
 ament_target_dependencies(talker rclcpp std_msgs)
 
 # インクルードファイルを検索する追加のパスを指定
