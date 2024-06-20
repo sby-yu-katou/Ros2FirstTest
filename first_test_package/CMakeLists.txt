@@ -13,19 +13,19 @@ find_package(std_msgs REQUIRED)
 
 ########################################
 # for Publisher
-add_executable(talker src/TestPublisher.cpp)
+add_executable(talker src/Publisher/TestPublisher.cpp)
 ament_target_dependencies(talker rclcpp std_msgs)
 
 # インクルードファイルを検索する追加のパスを指定
-target_include_directories(talker PRIVATE ./include/first_test_package)
+# target_include_directories(talker PRIVATE ./include/)
 
 ########################################
 # for Subscriber
-add_executable(listener src/TestSubscriber.cpp)
+add_executable(listener src/Subscriber/TestSubscriber.cpp)
 ament_target_dependencies(listener rclcpp std_msgs)
 
 # インクルードファイルを検索する追加のパスを指定
-target_include_directories(listener PRIVATE ./include/first_test_package)
+# target_include_directories(listener PRIVATE ./include/)
 ########################################
 
 ########################################
